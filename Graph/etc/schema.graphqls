@@ -1,0 +1,37 @@
+type Query {
+    codilarblog: Codilarblog @resolver(class: "Piyush\\Graph\\Model\\Resolver\\Blog") @doc(description: "The Codilarblog query returns information about a blog")
+    productCollection: ProductCollection @resolver(class:   "Piyush\\Graph\\Model\\Resolver\\ProductsResolver")      @doc(description: "Get Product collection of a store")
+}
+
+type Codilarblog @doc(description: "Codilarblog defines the blog name and other related details") {
+    entity_id: Int
+    blog_name: String
+    author: String
+    blog_content: String
+}
+
+type ProductCollection @doc(description: "product collection") {
+    allProducts: [ProductRecord] @doc(description: "Product records with sku,name and price")
+}
+type ProductRecord {
+    id: Int @doc(description: "To get Product Id")
+    sku: String @doc(description: "To get Product sku")
+    name: String @doc(description: "To get Product name")
+    price: Float @doc(description: "To get Product price")
+}
+
+
+type Mutation {
+    contactusFormSubmit(input: ContactusInput!): ContactusOutput @resolver(class: "\\Piyush\\Graph\\Model\\Resolver\\Contactus") @doc(description:"Contact us form")
+}
+
+input ContactusInput {
+    fullname: String @doc(description: "The customer's full name")
+    email: String @doc(description: "The customer's email address")
+    telephone: String @doc(description: "The Telephone")
+    message: String @doc(description: "The customer's message")
+}
+
+type ContactusOutput {
+   success_message: String @doc(description: "Success Message")
+}
